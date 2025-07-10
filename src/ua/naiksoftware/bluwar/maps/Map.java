@@ -13,7 +13,9 @@
  You should have received a copy of the GNU General Public License
  along with this program; if not, write to the Free Software*/
 
-/* Примерно такая может быть карта:
+/* 
+ * Примерно такая может быть карта:
+ * A map might look something like this:
  *
  *   . . . . . . . . . 
  *   . . . . . . . . .
@@ -28,6 +30,10 @@
  * . — пустые блоки (воздух) VOID
  * ≈ — однородная земля FILL
  * % — детализированные (в блоке и земля и воздух — true/false попиксельный перенос текстуры)
+ * 
+ * . — empty blocks (air) VOID
+ * ≈ — uniform ground FILL
+ * % — detailed (both ground and air in block — true/false pixel-by-pixel texture transfer)
  */
 package ua.naiksoftware.bluwar.maps;
 
@@ -35,6 +41,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 //import filelog.Log;
 
+/*
+ * Map class handles loading and parsing of map data from BluWar map files.
+ * Supports different block types: VOID (air), FILL (solid ground), and detailed blocks.
+ */
 public class Map {
 
     private String mapName;
@@ -43,12 +53,20 @@ public class Map {
     private byte hbl;
     private short detaliedStartCounts;
     private short[][] blocks;
-    /* Хранение неоднородных блоков (true - land, false - air).
+    /* 
+     * Хранение неоднородных блоков (true - land, false - air).
      * 1 [] — ID детализированного блока
      * 2 [] — номер строки блока
      * 3 [] — номер колонки блока
      * При использовании типа массива byte можно использовать намного большее
      * колличество текстур. На скорость отрисовки сильно не должно повлиять.
+     * 
+     * Storage for heterogeneous blocks (true - land, false - air).
+     * 1 [] — detailed block ID
+     * 2 [] — block row number
+     * 3 [] — block column number
+     * When using byte array type, much larger number of textures can be used.
+     * Should not significantly affect rendering speed.
      */
     private boolean[][][] detailBlocks;
 
@@ -60,14 +78,23 @@ public class Map {
     }
 
     /*
-     Формат:
-     name:Map 1    — имя карты ддя отображения
-     blsize:20     — размер блока карты (текстуры)
-     blw:45        — блоков по ширине
-     blh:25        — блоков по высоте
-     bldet:172     — детализированных блоков
-     link:map1.bwm — путь к карте
-     Файл должен заканчиваться \n
+     * Формат:
+     * name:Map 1    — имя карты ддя отображения
+     * blsize:20     — размер блока карты (текстуры)
+     * blw:45        — блоков по ширине
+     * blh:25        — блоков по высоте
+     * bldet:172     — детализированных блоков
+     * link:map1.bwm — путь к карте
+     * Файл должен заканчиваться \n
+     * 
+     * Format:
+     * name:Map 1    — map name for display
+     * blsize:20     — map block size (texture)
+     * blw:45        — blocks in width
+     * blh:25        — blocks in height
+     * bldet:172     — detailed blocks
+     * link:map1.bwm — path to map
+     * File must end with \n
      */
     private String initMapHeader(String mapHeader) {
         InputStreamReader isr = null;
@@ -123,11 +150,17 @@ public class Map {
 
 
     /*
-     Формат:
-     f - false
-     t - true
-     a - air
-     l - land
+     * Формат:
+     * f - false
+     * t - true
+     * a - air
+     * l - land
+     * 
+     * Format:
+     * f - false
+     * t - true
+     * a - air
+     * l - land
      */
     private void initMap(String pathToMap) {
         InputStreamReader isr = null;

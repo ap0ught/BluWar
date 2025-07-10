@@ -22,24 +22,41 @@ import ua.naiksoftware.bluwar.maps.Map;
 import java.io.IOException;
 import javax.microedition.lcdui.game.Sprite;
 
+/*
+ * MapHolder manages map rendering and dynamic tile loading.
+ * It renders the map in tiles and loads new tiles as the view moves.
+ */
 public class MapHolder implements Runnable {
 
     private static final String tag = "MapHolder";
 
-    // Пеpеменные для отрисовки одного тайла ( fillTile(...) ).
+    /* 
+     * Пеpеменные для отрисовки одного тайла ( fillTile(...) ).
+     * Variables for rendering a single tile ( fillTile(...) ).
+     */
     private final byte blockSize;//px
     private final short[][] blocks;
 
     private static final byte VOID = -1;
     private static final byte FILL = -2;
 
-    private static final int BG = 0x127712;// Фoн.
+    /*
+     * Фoн.
+     * Background color.
+     */
+    private static final int BG = 0x127712;
 
-    // Содержит 2Д массивы пикселей детализированных блоков.
+    /* 
+     * Содержит 2Д массивы пикселей детализированных блоков.
+     * Contains 2D pixel arrays of detailed blocks.
+     */
     private Vector detalied;
     private Image land;
 
-    // Переменные для отрисовки сгенерированных тайлов карты ( draw(...) ).
+    /* 
+     * Переменные для отрисовки сгенерированных тайлов карты ( draw(...) ).
+     * Variables for drawing generated map tiles ( draw(...) ).
+     */
     private int numRows, numCols;
     private final int wTile, hTile;
     private int xDrawPoint, yDrawPoint;
@@ -48,8 +65,13 @@ public class MapHolder implements Runnable {
     private final Image[] tiles;
     private final int[][] matrixTiles;
 
-    // Переменные для динамической подгрузки карты.
-    // Расстояние, до конца тайла, после которого начинается подгрузка.
+    /* 
+     * Переменные для динамической подгрузки карты.
+     * Расстояние, до конца тайла, после которого начинается подгрузка.
+     * 
+     * Variables for dynamic map loading.
+     * Distance to the end of a tile after which loading begins.
+     */
     private final int SHIFT_LOAD_W, SHIFT_LOAD_H;
     private boolean loadLeft = false, loadUp = false, loadRight = false, loadDown = false;
     private boolean mapDisplayed;
@@ -67,7 +89,10 @@ public class MapHolder implements Runnable {
         }
         detaliedBlocks = null;
         System.gc();
-        // Лучше всего, если экран 3:4.
+        /*
+         * Лучше всего, если экран 3:4.
+         * Best if screen is 3:4 ratio.
+         */
         numRows = 4;// 4 default
         while (scrH % numRows != 0) {
             numRows++;
@@ -78,8 +103,12 @@ public class MapHolder implements Runnable {
         }
         wTile = scrW / numCols;
         hTile = scrH / numRows;
-        numRows += 2;// Буфер
-        numCols += 2;// на один тайл с каждой стороны экрана.
+        /*
+         * Буфер на один тайл с каждой стороны экрана.
+         * Buffer of one tile on each side of the screen.
+         */
+        numRows += 2;
+        numCols += 2;
         numOfTiles = numRows * numCols;
         SHIFT_LOAD_W = wTile / 2;
         SHIFT_LOAD_H = hTile / 2;
@@ -101,7 +130,10 @@ public class MapHolder implements Runnable {
         initNewViewport(viewX, viewY);
     }
 
-    // x, y - координаты на карте с которых начинается рендеринг.
+    /*
+     * x, y - координаты на карте с которых начинается рендеринг.
+     * x, y - coordinates on the map from which rendering starts.
+     */
     public final void initNewViewport(int x, int y) {
         xDrawPoint = -wTile;
         yDrawPoint = -hTile;
@@ -121,8 +153,11 @@ public class MapHolder implements Runnable {
     }
 
     /*
-     Отрисовываем отрендеренные тайлы и запускаем рендеринг новых если нужно
-     в отдельном треде.
+     * Отрисовываем отрендеренные тайлы и запускаем рендеринг новых если нужно
+     * в отдельном треде.
+     * 
+     * Draw rendered tiles and start rendering new ones if needed
+     * in a separate thread.
      */
     public void draw(Graphics g, int x, int y) {
         xDrawPoint += (xLastMap - x);
@@ -172,7 +207,10 @@ public class MapHolder implements Runnable {
         yLastMap = y;
     }
 
-    // Генерация тайлов в отдельном треде.
+    /* 
+     * Генерация тайлов в отдельном треде.
+     * Tile generation in a separate thread.
+     */
     public void run() {
         final int[] savedRow = new int[numCols];
         final int[] savedColumn = new int[numRows];
@@ -287,7 +325,10 @@ public class MapHolder implements Runnable {
 
     private void fillTile(Graphics g, int xOnMap, int yOnMap) {
         //Log.d(tag, "fillTile (map coords): " + xOnMap + ", " + yOnMap);
-        // Проверяем, не находится ли тайл за границей видимости.
+        /*
+         * Проверяем, не находится ли тайл за границей видимости.
+         * Check if the tile is outside the visibility boundary.
+         */
         //if (xOnMap < (-wTile) || xOnMap > (blockSize * blocks.length)
         //	|| yOnMap < (-hTile) || yOnMap > (blockSize * blocks[0].length)) {
         //    Log.d(tag, "fillTile fast return");
@@ -314,15 +355,24 @@ public class MapHolder implements Runnable {
             for (int j = yOnMap; j < yOnMap2; j += blockSize) {
                 currBlockID = blocks[i / blockSize][j / blockSize];
                 switch (currBlockID) {
-                    //Воздух.
+                    /*
+                     * Воздух.
+                     * Air.
+                     */
                     case VOID:
                         //TODO: закрасить цветом фона?
                         break;
-                    //Земля.
+                    /*
+                     * Земля.
+                     * Ground/Land.
+                     */
                     case FILL:
                         g.drawImage(land, i - paintX, j - paintY, Graphics.LEFT | Graphics.TOP);
                         break;
-                    //В одном блоке и земля и воздух. Рисуем попиксельно с тайлов.
+                    /*
+                     * В одном блоке и земля и воздух. Рисуем попиксельно с тайлов.
+                     * Both ground and air in one block. Draw pixel by pixel from tiles.
+                     */
                     default:
                         //TODO: закрасить цветом фона?
                         boolean[][] detaliedBlock = (boolean[][]) detalied.elementAt(currBlockID);
