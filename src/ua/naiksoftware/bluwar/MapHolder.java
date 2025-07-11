@@ -30,25 +30,33 @@ public class MapHolder implements Runnable {
 
     private static final String tag = "MapHolder";
 
-// Пеpеменные для отрисовки одного тайла ( fillTile(...) ).
-// Variables for drawing a single tile (fillTile(...)).
+/*
+ * Пеpеменные для отрисовки одного тайла ( fillTile(...) ).
+ * Variables for drawing a single tile (fillTile(...)).
+ */
     private final byte blockSize;//px
     private final short[][] blocks;
 
     private static final byte VOID = -1;
     private static final byte FILL = -2;
 
-// Фoн.
-// Background.
+/*
+ * Фoн.
+ * Background.
+ */
 private static final int BG = 0x127712;
 
-// Содержит 2Д массивы пикселей детализированных блоков.
-// Contains 2D arrays of pixels for detailed blocks.
+/*
+ * Содержит 2Д массивы пикселей детализированных блоков.
+ * Contains 2D arrays of pixels for detailed blocks.
+ */
     private Vector detalied;
     private Image land;
 
-// Переменные для отрисовки сгенерированных тайлов карты ( draw(...) ).
-// Variables for drawing generated map tiles (draw(...)).
+/*
+ * Переменные для отрисовки сгенерированных тайлов карты ( draw(...) ).
+ * Variables for drawing generated map tiles (draw(...)).
+ */
     private int numRows, numCols;
     private final int wTile, hTile;
     private int xDrawPoint, yDrawPoint;
@@ -57,10 +65,12 @@ private static final int BG = 0x127712;
     private final Image[] tiles;
     private final int[][] matrixTiles;
 
-// Переменные для динамической подгрузки карты.
-// Variables for dynamic map loading.
-// Расстояние, до конца тайла, после которого начинается подгрузка.
-// Distance to the end of the tile after which loading starts.
+/*
+ * Переменные для динамической подгрузки карты.
+ * Variables for dynamic map loading.
+ * Расстояние, до конца тайла, после которого начинается подгрузка.
+ * Distance to the end of the tile after which loading starts.
+ */
     private final int SHIFT_LOAD_W, SHIFT_LOAD_H;
     private boolean loadLeft = false, loadUp = false, loadRight = false, loadDown = false;
     private boolean mapDisplayed;
@@ -78,8 +88,10 @@ private static final int BG = 0x127712;
         }
         detaliedBlocks = null;
         System.gc();
-// Лучше всего, если экран 3:4.
-// Best if the screen is 3:4.
+/*
+ * Лучше всего, если экран 3:4.
+ * Best if the screen is 3:4.
+ */
         numRows = 4;// 4 default
         while (scrH % numRows != 0) {
             numRows++;
@@ -117,8 +129,10 @@ private static final int BG = 0x127712;
         initNewViewport(viewX, viewY);
     }
 
-// x, y - координаты на карте с которых начинается рендеринг.
-// x, y - coordinates on the map from which rendering starts.
+/*
+ * x, y - координаты на карте с которых начинается рендеринг.
+ * x, y - coordinates on the map from which rendering starts.
+ */
     public final void initNewViewport(int x, int y) {
         xDrawPoint = -wTile;
         yDrawPoint = -hTile;
@@ -191,42 +205,56 @@ private static final int BG = 0x127712;
         yLastMap = y;
     }
 
-// Генерация тайлов в отдельном треде.
-// Tile generation in a separate thread.
+/*
+ * Генерация тайлов в отдельном треде.
+ * Tile generation in a separate thread.
+ */
     public void run() {
-        // Массивы для временного хранения идентификаторов тайлов при сдвиге.
-        // Arrays for temporary storage of tile IDs during shifting.
+        /*
+         * Массивы для временного хранения идентификаторов тайлов при сдвиге.
+         * Arrays for temporary storage of tile IDs during shifting.
+         */
         final int[] savedRow = new int[numCols];
         final int[] savedColumn = new int[numRows];
         int tmpTileId;
-        // Главный цикл генерации карты, работает пока карта отображается.
-        // Main map generation loop, runs while the map is displayed.
+        /*
+         * Главный цикл генерации карты, работает пока карта отображается.
+         * Main map generation loop, runs while the map is displayed.
+         */
         while (mapDisplayed) {
             //--------------------
-            // Генерация тайлов слева.
-            // Generation of tiles on the left.
+            /*
+             * Генерация тайлов слева.
+             * Generation of tiles on the left.
+             */
             if (loadLeft) {
                 for (int i = 0; i < numRows; i++) {
                     tmpTileId = matrixTiles[i][numCols - 1];
                     savedColumn[i] = tmpTileId;
-                    // Заполнение нового тайла слева.
-                    // Filling new tile on the left.
+                    /*
+                     * Заполнение нового тайла слева.
+                     * Filling new tile on the left.
+                     */
                     fillTile(tiles[tmpTileId].getGraphics(),
                             savedX + savedXDrawPoint - wTile,
                             savedY + savedYDrawPoint + (hTile * i));
                     //Log.d(tag, "tmpTileId=" + tmpTileId);
 
                 }
-                // Сдвиг тайлов вправо в матрице.
-                // Shift tiles to the right in the matrix.
+                /*
+                 * Сдвиг тайлов вправо в матрице.
+                 * Shift tiles to the right in the matrix.
+                 */
                 for (int i = 0; i < numRows; i++) {
                     for (int j = (numCols - 2); j > (-1); j--) {
                         matrixTiles[i][j + 1] = matrixTiles[i][j];
                         //Log.d(tag, "copy from [" + i + "][" + (j+1) + "] to [" + i + "][" + j + "]");
                     }
                 }
-                // Установка новых тайлов слева.
-                // Set new tiles on the left.
+                /*
+                 * Установка новых тайлов слева.
+                 * Set new tiles on the left.
+                 */
                 for (int i = 0; i < numRows; i++) {
                     matrixTiles[i][0] = savedColumn[i];
                 }
@@ -234,8 +262,10 @@ private static final int BG = 0x127712;
                 savedXDrawPoint -= wTile;
                 loadLeft = false;
                 //--------------------
-                // Генерация тайлов справа.
-                // Generation of tiles on the right.
+                /*
+                 * Генерация тайлов справа.
+                 * Generation of tiles on the right.
+                 */
             } else if (loadRight) {
                 for (int i = 0; i < numRows; i++) {
                     tmpTileId = matrixTiles[i][0];
@@ -246,16 +276,20 @@ private static final int BG = 0x127712;
                     //Log.d(tag, "tmpTileId=" + tmpTileId);
 
                 }
-                // Сдвиг тайлов влево в матрице.
-                // Shift tiles to the left in the matrix.
+                /*
+                 * Сдвиг тайлов влево в матрице.
+                 * Shift tiles to the left in the matrix.
+                 */
                 for (int i = 0; i < numRows; i++) {
                     for (int j = 1; j < numCols; j++) {
                         matrixTiles[i][j - 1] = matrixTiles[i][j];
                         //Log.d(tag, "copy from [" + i + "][" + (j-1) + "] to [" + i + "][" + j + "]");
                     }
                 }
-                // Установка новых тайлов справа.
-                // Set new tiles on the right.
+                /*
+                 * Установка новых тайлов справа.
+                 * Set new tiles on the right.
+                 */
                 for (int i = 0; i < numRows; i++) {
                     matrixTiles[i][numCols - 1] = savedColumn[i];
                 }
@@ -263,8 +297,10 @@ private static final int BG = 0x127712;
                 savedXDrawPoint += wTile;
                 loadRight = false;
             } //--------------------
-            // Генерация тайлов сверху.
-            // Generation of tiles at the top.
+            /*
+             * Генерация тайлов сверху.
+             * Generation of tiles at the top.
+             */
             else if (loadUp) {
                 for (int i = 0; i < numCols; i++) {
                     tmpTileId = matrixTiles[numRows - 1][i];
@@ -275,24 +311,30 @@ private static final int BG = 0x127712;
                     //Log.d(tag, "tmpTileId=" + tmpTileId);
 
                 }
-                // Сдвиг тайлов вниз в матрице.
-                // Shift tiles down in the matrix.
+                /*
+                 * Сдвиг тайлов вниз в матрице.
+                 * Shift tiles down in the matrix.
+                 */
                 for (int i = 0; i < numCols; i++) {
                     for (int j = (numRows - 2); j > (-1); j--) {
                         matrixTiles[j + 1][i] = matrixTiles[j][i];
                         //Log.d(tag, "copy from [" + (j + 1) + "][" + i + "] to [" + j + "][" + i + "]");
                     }
                 }
-                // Установка новых тайлов сверху.
-                // Set new tiles at the top.
+                /*
+                 * Установка новых тайлов сверху.
+                 * Set new tiles at the top.
+                 */
                 for (int i = 0; i < numCols; i++) {
                     matrixTiles[0][i] = savedRow[i];
                 }
                 yDrawPoint -= wTile;
                 loadUp = false;
                 //--------------------
-                // Генерация тайлов снизу.
-                // Generation of tiles at the bottom.
+                /*
+                 * Генерация тайлов снизу.
+                 * Generation of tiles at the bottom.
+                 */
             } else if (loadDown) {
                 for (int i = 0; i < numCols; i++) {
                     tmpTileId = matrixTiles[0][i];
@@ -303,16 +345,20 @@ private static final int BG = 0x127712;
                     //Log.d(tag, "tmpTileId=" + tmpTileId);
 
                 }
-                // Сдвиг тайлов вверх в матрице.
-                // Shift tiles up in the matrix.
+                /*
+                 * Сдвиг тайлов вверх в матрице.
+                 * Shift tiles up in the matrix.
+                 */
                 for (int i = 0; i < numCols; i++) {
                     for (int j = 1; j < numRows; j++) {
                         matrixTiles[j - 1][i] = matrixTiles[j][i];
                         //Log.d(tag, "copy from [" + (j - 1) + "][" + i + "] to [" + j + "][" + i + "]");
                     }
                 }
-                // Установка новых тайлов снизу.
-                // Set new tiles at the bottom.
+                /*
+                 * Установка новых тайлов снизу.
+                 * Set new tiles at the bottom.
+                 */
                 for (int i = 0; i < numCols; i++) {
                     matrixTiles[numRows - 1][i] = savedRow[i];
                 }
@@ -333,15 +379,19 @@ private static final int BG = 0x127712;
 
     private void fillTile(Graphics g, int xOnMap, int yOnMap) {
         //Log.d(tag, "fillTile (map coords): " + xOnMap + ", " + yOnMap);
-// Проверяем, не находится ли тайл за границей видимости.
-// Check if the tile is outside the visible area.
+/*
+ * Проверяем, не находится ли тайл за границей видимости.
+ * Check if the tile is outside the visible area.
+ */
         //if (xOnMap < (-wTile) || xOnMap > (blockSize * blocks.length)
         //    || yOnMap < (-hTile) || yOnMap > (blockSize * blocks[0].length)) {
         //    Log.d(tag, "fillTile fast return");
         //    return;
         //} ----- и без этого отсекается ненужное
-        // Это условие было закомментировано, так как ненужные тайлы уже не рендерятся.
-        // This condition is commented out because unnecessary tiles are already not rendered.
+        /*
+         * Это условие было закомментировано, так как ненужные тайлы уже не рендерятся.
+         * This condition is commented out because unnecessary tiles are already not rendered.
+         */
         int paintX = xOnMap, paintY = yOnMap;
         int xOnMap2 = xOnMap + wTile, yOnMap2 = yOnMap + hTile;
         if (xOnMap < 0) {
