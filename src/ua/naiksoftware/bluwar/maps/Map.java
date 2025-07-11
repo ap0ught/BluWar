@@ -204,8 +204,10 @@ public class Map {
             e.printStackTrace();
             //Log.d("BW Map.java", "Other exception:" + e.getMessage());
         }
-        //System.out.println("detIndex="+detIndex);
-        //System.out.println("detaliedStartCounts="+detaliedStartCounts);
+        /*
+         * System.out.println("detIndex="+detIndex);
+         * System.out.println("detaliedStartCounts="+detaliedStartCounts);
+         */
         if (detIndex != detaliedStartCounts) {
             throw new IllegalArgumentException("Bldet not equal with real numbers bldet");
         }

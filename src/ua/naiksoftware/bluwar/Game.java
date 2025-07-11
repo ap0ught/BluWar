@@ -88,13 +88,17 @@ public class Game extends GameCanvas implements Runnable {
         scrH = getHeight();
         cX = scrW / 2;
         cY = scrH / 2;
-        //Log.d(tag, "scrW=" + scrW);
-        //Log.d(tag, "scrH=" + scrH);
+        /*
+         * Log.d(tag, "scrW=" + scrW);
+         * Log.d(tag, "scrH=" + scrH);
+         */
         Map map = new Map(mapHeader);//Send BlueWarHeader file.
         w = map.getBlockSize() * map.getWbl();
         h = map.getBlockSize() * map.getHbl();
-        //Log.d(tag, "W=" + w);
-        //Log.d(tag, "H=" + h);
+        /*
+         * Log.d(tag, "W=" + w);
+         * Log.d(tag, "H=" + h);
+         */
         /*
          * Если ширина карты меньше ширины экрана,
          * то присваиваем ложное значение центра экрана чтоб переменная не влияла на расчеты.
