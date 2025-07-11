@@ -14,6 +14,9 @@
  along with this program; if not, write to the Free Software*/
 package ua.naiksoftware.bluwar;
 
+/*
+ * Interface for objects that need to signal completion of initialization.
+ */
 public interface Initializer {
 
     public void complete();

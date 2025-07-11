@@ -18,6 +18,9 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Font;
 
+/*
+ * WaitScreen displays a loading screen with progress bar during game initialization.
+ */
 public class WaitScreen extends Canvas {
 
     private final Font fntTitle = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_LARGE);

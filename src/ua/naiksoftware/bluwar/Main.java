@@ -19,14 +19,14 @@ import javax.microedition.midlet.MIDlet;
 import java.util.Vector;
 
 /*
-Главный класс приложения
-Main application class
-*/
+ * Main MIDlet class for BluWar game.
+ * Handles application lifecycle and initializes the game.
+ */
 public class Main extends MIDlet implements Runnable, Initializer {
 
     private Game game;
     private Display display;
-    private Vector mapHeaders;
+    private Vector mapHeaders;  // Contains available map file headers
     private WaitScreen waitScreen;
 
     /*
@@ -48,9 +48,8 @@ public class Main extends MIDlet implements Runnable, Initializer {
     }
 
     /*
-    Основной поток загрузки ресурсов и инициализации игры.
-    Main thread for loading resources and initializing the game.
-    */
+     * Initialization thread - loads maps and creates game instance.
+     */
     public void run() {
         mapHeaders = getMaps();
         game = new Game((String) mapHeaders.elementAt(0), waitScreen);
@@ -58,9 +57,9 @@ public class Main extends MIDlet implements Runnable, Initializer {
     }
 
     /*
-    Очистка памяти и старт игры.
-    Memory cleanup and start the game.
-    */
+     * Очистка памяти и старт игры.
+     * Memory cleanup and game start.
+     */
     public void complete() {
         display.setCurrent(game);
         waitScreen = null;
@@ -68,9 +67,8 @@ public class Main extends MIDlet implements Runnable, Initializer {
     }
 
     /*
-    Получение списка доступных карт для игры.
-    Get the list of available maps for the game.
-    */
+     * Returns list of available map files.
+     */
     private Vector getMaps() {
         Vector v = new Vector();
         v.addElement("/map1.bwh");

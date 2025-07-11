@@ -21,30 +21,61 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import ua.naiksoftware.bluwar.maps.Map;
 
+/*
+ * Main game class that extends GameCanvas for J2ME.
+ * Handles game rendering, input, and the main game loop.
+ */
 public class Game extends GameCanvas implements Runnable {
 
+    /*
+     * FPS calculation and display variables.
+     */
     private static final String tag = "Game";
     private static long FPS, FPS_Count, FPS_Start;
 
-    //Размеры карты в пикселях.
+    /*
+     * Размеры карты в пикселях.
+     * Map dimensions in pixels.
+     */
     private final int w, h;
-    //Размеры экрана в пикселях.
+    /*
+     * Размеры экрана в пикселях.
+     * Screen dimensions in pixels.
+     */
     private final int scrW, scrH;
-    //Центр экрана.
+    /*
+     * Центр экрана.
+     * Screen center.
+     */
     private int cX, cY;
-    //Координаты фокусировки на карте.
+    /*
+     * Координаты фокусировки на карте.
+     * Focus coordinates on the map.
+     */
     private int mapX, mapY;
-    //Обертка для удобства действий с картой.
+    /*
+     * Обертка для удобства действий с картой.
+     * Wrapper for convenient map operations.
+     */
     private final MapHolder mapHolder;
     private byte moveType;
     private static final byte MOVE_CURSOR = 1;
-    // Изображения, которые все время будут в памяти.
+    /* 
+     * Изображения, которые все время будут в памяти.
+     * Images that will always be kept in memory.
+     */
     private Image cursor;
     private final Graphics graphics;
-    // Координаты на экране, курсора.
+    /* 
+     * Координаты на экране, курсора.
+     * Cursor coordinates on screen.
+     */
     private int curX, curY;
 
-    // Управление.
+    /* 
+     * Управление.
+     * Controls.
+     */
     private Thread threadRepaint;
     private int keyState, lastKeyState;
     private boolean running;
@@ -64,15 +95,33 @@ public class Game extends GameCanvas implements Runnable {
         h = map.getBlockSize() * map.getHbl();
         //Log.d(tag, "W=" + w);
         //Log.d(tag, "H=" + h);
-        if (w < scrW) {// Если ширина карты меньше ширины экрана,
-            cX = w + 1;// то присваиваем ложное значение центра экрана чтоб переменная не влияла на расчеты.
+        /*
+         * Если ширина карты меньше ширины экрана,
+         * то присваиваем ложное значение центра экрана чтоб переменная не влияла на расчеты.
+         * 
+         * If map width is less than screen width,
+         * assign a false center value so the variable doesn't affect calculations.
+         */
+        if (w < scrW) {
+            cX = w + 1;
         }
-        if (h < scrH) {// Если высота карты меньше высоты экрана,
-            cX = w + 1;// то присваиваем ложное значение центра экрана чтоб переменная не влияла на расчеты.
+        /*
+         * Если высота карты меньше высоты экрана,
+         * то присваиваем ложное значение центра экрана чтоб переменная не влияла на расчеты.
+         * 
+         * If map height is less than screen height,
+         * assign a false center value so the variable doesn't affect calculations.
+         */
+        if (h < scrH) {
+            cX = w + 1;
             cY = h + 1;
         }
-        mapX = w / 2;// Временно,
-        mapY = h / 2;// потом вычислять коорд. персонажа.
+        /*
+         * Временно, потом вычислять коорд. персонажа.
+         * Temporary, later calculate character coordinates.
+         */
+        mapX = w / 2;
+        mapY = h / 2;
         waitScreen.setProgress(3, "Initializing map...");
         mapHolder = new MapHolder(map, scrW, scrH, mapX - getXOnScreen(mapX), mapY - getYOnScreen(mapY));
         moveType = MOVE_CURSOR;
@@ -83,14 +132,24 @@ public class Game extends GameCanvas implements Runnable {
 
     public void showNotify() {
         super.showNotify();
-        // Отрисуем сцену первый раз, потом обновляем при необходимости в треде
+        /* 
+         * Отрисуем сцену первый раз, потом обновляем при необходимости в треде
+         * Draw the scene for the first time, then update as needed in the thread
+         */
         updateGraphics();
-        running = true; // Используется в треде отрисовки.
+        /* 
+         * Используется в треде отрисовки.
+         * Used in the rendering thread.
+         */
+        running = true;
         threadRepaint = new Thread(this);
         threadRepaint.start();
     }
 
-    // Цикл.
+    /* 
+     * Цикл.
+     * Main loop.
+     */
     public void run() {
         while (running) {
             try {
