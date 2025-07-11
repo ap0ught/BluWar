@@ -1,0 +1,63 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"b404091c-41a1-4cf6-93c1-64a05e8972e8\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/ua/naiksoftware/bluwar/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/ua/naiksoftware/bluwar/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/ua/naiksoftware/bluwar/MapHolder.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/ua/naiksoftware/bluwar/MapHolder.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {}\r\n}</component>\r\n  <component name=\"GitHubPullRequestState\"><![CDATA[{\r\n  \"prStates\": [\r\n    {\r\n      \"id\": {\r\n        \"id\": \"PR_kwDOPKbjxc6eZOWl\",\r\n        \"number\": 1\r\n      },\r\n      \"lastSeen\": 1752191738161\r\n    }\r\n  ]\r\n}]]></component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/ap0ught/BluWar.git&quot;,\r\n    &quot;accountId&quot;: &quot;c1f743de-fa42-4080-99db-3da7fbfb32b9&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2zhJzDUJyrHgClsLRfVtGQRIbIE\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"autoscrollToSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n    <option name=\"sortKey\" value=\"BY_TIME_DESCENDING\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"git-widget-placeholder\": \"#1 on copilot/fix-cfa27d86-cf5c-4707-85…21fa6\",\r\n    \"last_opened_file_path\": \"D:/code/BlueWar\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"settings.editor.selected.configurable\": \"com.github.copilot.settings.ApplicationConfigurable\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"b404091c-41a1-4cf6-93c1-64a05e8972e8\" name=\"Changes\" comment=\"\" />\r\n      <created>1752177631461</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1752177631461</updated>\r\n      <workItem from=\"1752177635539\" duration=\"2001000\" />\r\n      <workItem from=\"1752180251840\" duration=\"1453000\" />\r\n      <workItem from=\"1752191714841\" duration=\"647000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"origin/copilot/fix-cfa27d86-cf5c-4707-8538-6a65f1721fa6\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 1df55c89878b9a04b19d7dc411e04f2640636510)
++++ b/.idea/workspace.xml	(date 1752192664450)
+@@ -4,10 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="b404091c-41a1-4cf6-93c1-64a05e8972e8" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/src/ua/naiksoftware/bluwar/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ua/naiksoftware/bluwar/Main.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/ua/naiksoftware/bluwar/MapHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ua/naiksoftware/bluwar/MapHolder.java" afterDir="false" />
+-    </list>
++    <list default="true" id="b404091c-41a1-4cf6-93c1-64a05e8972e8" name="Changes" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -16,7 +13,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
++        <entry key="$PROJECT_DIR$" value="copilot/fix-cfa27d86-cf5c-4707-8538-6a65f1721fa6" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -56,7 +53,6 @@
+   "keyToString": {
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.git.unshallow": "true",
+-    "git-widget-placeholder": "#1 on copilot/fix-cfa27d86-cf5c-4707-85…21fa6",
+     "last_opened_file_path": "D:/code/BlueWar",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+@@ -67,6 +63,14 @@
+     "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
++  <component name="RubyModuleManagerSettings">
++    <option name="blackListedRootsPaths">
++      <list>
++        <option value="$PROJECT_DIR$" />
++        <option value="$PROJECT_DIR$/build" />
++      </list>
++    </option>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -84,7 +88,7 @@
+       <updated>1752177631461</updated>
+       <workItem from="1752177635539" duration="2001000" />
+       <workItem from="1752180251840" duration="1453000" />
+-      <workItem from="1752191714841" duration="647000" />
++      <workItem from="1752191714841" duration="910000" />
+     </task>
+     <servers />
+   </component>
