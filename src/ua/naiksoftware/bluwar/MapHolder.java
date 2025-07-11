@@ -120,10 +120,12 @@ private static final int BG = 0x127712;
             land = Image.createImage("/land.png");
         } catch (IOException e) {
         }
-        //Log.d(tag, "scrW=" + scrW + " scrH=" + scrH);
-        //Log.d(tag, "numRows=" + numRows + " numCols=" + numCols);
-        //Log.d(tag, "wTile=" + wTile + " hTile=" + hTile);
-        //Log.d(tag, "viewX="+viewX+" viewY="+viewY);
+        /*
+         * Log.d(tag, "scrW=" + scrW + " scrH=" + scrH);
+         * Log.d(tag, "numRows=" + numRows + " numCols=" + numCols);
+         * Log.d(tag, "wTile=" + wTile + " hTile=" + hTile);
+         * Log.d(tag, "viewX="+viewX+" viewY="+viewY);
+         */
         mapDisplayed = true;
         new Thread(this).start();
         initNewViewport(viewX, viewY);
@@ -144,18 +146,20 @@ private static final int BG = 0x127712;
                         x + xDrawPoint + j * wTile,
                         y + yDrawPoint + i * hTile);
                 matrixTiles[i][j] = (i * numCols + j);
-                //tiles[i * numCols + j].getGraphics().setColor(0x0000ff);
-                //tiles[i * numCols + j].getGraphics().drawRect(0, 0, wTile - 1, hTile - 1);
-                //tiles[i * numCols + j].getGraphics().drawString(Integer.toString(i * numCols + j), 3, 3, Graphics.LEFT | Graphics.TOP);
+                /*
+                 * tiles[i * numCols + j].getGraphics().setColor(0x0000ff);
+                 * tiles[i * numCols + j].getGraphics().drawRect(0, 0, wTile - 1, hTile - 1);
+                 * tiles[i * numCols + j].getGraphics().drawString(Integer.toString(i * numCols + j), 3, 3, Graphics.LEFT | Graphics.TOP);
+                 */
             }
         }
     }
 
     /*
-// Отрисовываем отрендеренные тайлы и запускаем рендеринг новых если нужно
-// в отдельном треде.
-// Rendering the rendered tiles and starting the rendering of new ones if necessary
-// in a separate thread.
+     * Отрисовываем отрендеренные тайлы и запускаем рендеринг новых если нужно
+     * в отдельном треде.
+     * Rendering the rendered tiles and starting the rendering of new ones if necessary
+     * in a separate thread.
      */
     public void draw(Graphics g, int x, int y) {
         xDrawPoint += (xLastMap - x);
@@ -383,11 +387,13 @@ private static final int BG = 0x127712;
  * Проверяем, не находится ли тайл за границей видимости.
  * Check if the tile is outside the visible area.
  */
-        //if (xOnMap < (-wTile) || xOnMap > (blockSize * blocks.length)
-        //    || yOnMap < (-hTile) || yOnMap > (blockSize * blocks[0].length)) {
-        //    Log.d(tag, "fillTile fast return");
-        //    return;
-        //} ----- и без этого отсекается ненужное
+        /*
+         * if (xOnMap < (-wTile) || xOnMap > (blockSize * blocks.length)
+         *     || yOnMap < (-hTile) || yOnMap > (blockSize * blocks[0].length)) {
+         *     Log.d(tag, "fillTile fast return");
+         *     return;
+         * } ----- и без этого отсекается ненужное
+         */
         /*
          * Это условие было закомментировано, так как ненужные тайлы уже не рендерятся.
          * This condition is commented out because unnecessary tiles are already not rendered.
